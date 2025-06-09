@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Zyncra - Web Apps, Websites & Manual Testing Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Light mode colors */
+    --color-bg: #ffffff;
+    --color-text: #6b7280;
+    --color-text-dark: #111827;
+    --color-primary: #2563eb;
+    --color-primary-hover: #1e40af;
+    --color-card-bg: #f9fafb;
+    --color-shadow: rgba(0, 0, 0, 0.05);
+    --radius: 0.75rem;
+    --max-width: 1200px;
+    --font-headline: 'Poppins', sans-serif;
+    --transition-fast: 0.3s ease;
+    --transition-easy: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+    font-size: 17px;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.5s var(--transition-easy), color 0.5s var(--transition-easy);
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  a:hover, a:focus {
+    color: var(--color-primary-hover);
+    outline: none;
+  }
+
+  h1,h2,h3,h4,h5,h6 {
+    font-family: var(--font-headline);
+    margin: 0 0 0.5em;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--color-text-dark);
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+
+  h1 {
+    font-size: 4rem; /* 64px */
+  }
+  h2 {
+    font-size: 2.75rem;
+  }
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin-top: 0;
+    margin-bottom: 1.25em;
+  }
+
+  .container {
+    max-width: var(--max-width);
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  /* Animate sections fade and slide up */
+  section {
+    display: none;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  section.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Header/nav */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    background: var(--color-bg);
+    box-shadow: 0 2px 8px var(--color-shadow);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: var(--font-headline);
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: var(--color-text-dark);
+    user-select: none;
+  }
+
+  nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav a {
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius);
+    user-select: none;
+    color: var(--color-text-dark);
+    transition:
+      background-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  nav a.active,
+  nav a:hover,
+  nav a:focus {
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 0 12px var(--color-primary);
+    outline: none;
+    cursor: pointer;
+  }
+
+  /* Theme toggle button in header */
+  #theme-toggle {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 700;
+    border-radius: var(--radius);
+    padding: 0.3rem 1rem;
+    cursor: pointer;
+    user-select: none;
+    font-family: var(--font-headline);
+    font-size: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  #theme-toggle:hover, #theme-toggle:focus {
+    background-color: var(--color-primary);
+    color: white;
+    outline: none;
+  }
+
+  main {
+    flex-grow: 1;
+    padding: 4rem 0 6rem;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    text-align: center;
+    padding: 5rem 1rem 6rem;
+    border-radius: var(--radius);
+    max-width: 900px;
+    margin: 0 auto 4rem;
+    box-shadow: 0 15px 35px rgb(37 99 235 / 0.4);
+    user-select: none;
+  }
+  .hero p {
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
+    font-weight: 500;
+    color: rgba(255 255 255 / 0.85);
+  }
+  .button-primary {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 1.25rem 3rem;
+    font-weight: 700;
+    font-size: 1.25rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgb(0 0 0 / 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  .button-primary:hover,
+  .button-primary:focus {
+    transform: scale(1.05);
+    box-shadow: 0 10px 28px rgb(0 0 0 / 0.7);
+    outline: none;
+  }
+
+  /* Section titles */
+  .section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--color-text-dark);
+    text-align: center;
+    user-select: none;
+  }
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    max-width: 700px;
+    margin: 0 auto 3rem auto;
+    text-align: center;
+  }
+
+  /* Cards grid */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 2.25rem 3rem;
+    max-width: 900px;
+    margin: 0 auto 2rem;
+  }
+
+  /* Card styling */
+  .card {
+    background: var(--color-card-bg);
+    border-radius: var(--radius);
+    padding: 2rem 2.5rem;
+    box-shadow: 0 6px 22px var(--color-shadow);
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  .card:hover,
+  .card:focus-within {
+    transform: translateY(-6px);
+    outline: none;
+    box-shadow: 0 14px 33px rgba(37, 99, 235, 0.33);
+    cursor: pointer;
+  }
+  .card h3 {
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+  }
+  .card p {
+    flex-grow: 1;
+    color: var(--color-text-dark);
+    font-size: 1rem;
+  }
+  .icon {
+    width: 36px;
+    height: 36px;
+    stroke: var(--color-primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    margin-bottom: 0.8rem;
+  }
+  .card:hover .icon,
+  .card:focus-within .icon {
+    stroke: #1e40af;
+  }
+
+  /* Team list */
+  .team-list {
+    list-style: none;
+    padding: 0;
+    max-width: 560px;
+    margin: 0 auto 3rem;
+    color: var(--color-text-dark);
+    font-weight: 600;
+    user-select: none;
+  }
+  .team-list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #e4e7ec;
+  }
+  .team-list li:last-child {
+    border-bottom: none;
+  }
+
+  /* Contact form */
+  form {
+    max-width: 480px;
+    margin: 0 auto 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  label {
+    font-weight: 700;
+    color: var(--color-text-dark);
+    user-select: none;
+  }
+  input, textarea {
+    border: 1.5px solid #d1d5db;
+    border-radius: var(--radius);
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  input:focus, textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 6px var(--color-primary);
+    outline: none;
+  }
+  textarea {
+    min-height: 120px;
+  }
+  button[type="submit"] {
+    background-color: var(--color-primary);
+    border: none;
+    padding: 1.1rem;
+    color: white;
+    font-weight: 700;
+    font-size: 1.15rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    user-select: none;
+  }
+  button[type="submit"]:hover,
+  button[type="submit"]:focus {
+    background-color: #1e40af;
+    outline: none;
+  }
+
+  /* Footer */
+  footer {
+    background-color: var(--color-card-bg);
+    box-shadow: 0 -3px 14px var(--color-shadow);
+    padding: 3rem 2rem 3rem 2rem;
+    color: var(--color-text);
+    font-size: 0.9rem;
+    user-select: none;
+  }
+  footer .footer-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem 4rem;
+    justify-content: space-between;
+  }
+  footer .footer-section {
+    min-width: 180px;
+    flex: 1 1 180px;
+  }
+  footer h4 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  footer ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  footer ul li {
+    margin-bottom: 0.75rem;
+  }
+  footer ul li a {
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  footer ul li a:hover,
+  footer ul li a:focus {
+    color: var(--color-primary);
+    outline: none;
+  }
+
+  /* Email subscription */
+  .email-subscription {
+    display: flex;
+    gap: 0.8rem;
+    max-width: 320px;
+  }
+  .email-subscription input[type="email"] {
+    flex-grow: 1;
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1.5px solid #d1d5db;
+    transition: border-color 0.3s ease;
+  }
+  .email-subscription input[type="email"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 8px var(--color-primary);
+  }
+  .email-subscription button {
+    background-color: var(--color-primary);
+    border: none;
+    padding: 0 1.5rem;
+    border-radius: var(--radius);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .email-subscription button:hover,
+  .email-subscription button:focus {
+    background-color: #1e40af;
+    outline: none;
+  }
+
+  /* Social icons in footer */
+  .social-icons {
+    display: flex;
+    gap: 1.25rem;
+    margin-top: 1rem;
+  }
+  .social-icons a {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+  }
+  .social-icons a:hover,
+  .social-icons a:focus {
+    color: var(--color-primary);
+    outline: none;
+  }
+  .social-icons svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+
+  /* Animations */
+  @keyframes fadeSlideUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  section.active {
+    animation: fadeSlideUp 0.6s ease forwards;
+  }
+
+  /* Responsive */
+  @media (max-width: 680px) {
+    h1 {
+      font-size: 2.75rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    .container {
+      width: 95%;
+    }
+    nav {
+      gap: 1.2rem;
+    }
+    nav a {
+      font-size: 0.9rem;
+      padding: 0.25rem 0.45rem;
+    }
+    footer .footer-container {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    footer .footer-section {
+      min-width: 100%;
+      flex: none;
+    }
+    .email-subscription {
+      max-width: 100%;
+      flex-wrap: wrap;
+    }
+    .email-subscription input[type="email"] {
+      flex-basis: 100%;
+      margin-bottom: 0.75rem;
+    }
+    .email-subscription button {
+      flex-basis: 100%;
+    }
+  }
+
+  /* Dark Mode Styles */
+  body.dark-mode {
+    --color-bg: #111827;
+    --color-text: #d1d5db;
+    --color-text-dark: #e5e7eb;
+    --color-primary: #60a5fa;
+    --color-primary-hover: #3b82f6;
+    --color-card-bg: #1e293b;
+    --color-shadow: rgba(0,0,0,0.7);
+  }
+  body.dark-mode header {
+    background: var(--color-bg);
+    box-shadow: 0 2px 8px var(--color-shadow);
+  }
+  body.dark-mode nav a {
+    color: var(--color-text-dark);
+  }
+  body.dark-mode nav a.active,
+  body.dark-mode nav a:hover,
+  body.dark-mode nav a:focus {
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 0 12px var(--color-primary);
+  }
+  body.dark-mode .card {
+    background: var(--color-card-bg);
+    color: var(--color-text-dark);
+    box-shadow: 0 6px 18px rgba(31, 146, 230, 0.3);
+  }
+  body.dark-mode .card:hover,
+  body.dark-mode .card:focus-within {
+    box-shadow: 0 14px 33px rgba(59, 130, 246, 0.6);
+  }
+  body.dark-mode .section-title {
+    color: var(--color-text-dark);
+  }
+  body.dark-mode .section-subtitle {
+    color: var(--color-text);
+  }
+  body.dark-mode p {
+    color: var(--color-text-dark);
+  }
+  body.dark-mode label {
+    color: var(--color-text-dark);
+  }
+  body.dark-mode footer {
+    background: var(--color-card-bg);
+    color: var(--color-text-dark);
+  }
+  body.dark-mode footer h4 {
+    color: var(--color-text-dark);
+  }
+  body.dark-mode footer ul li a {
+    color: var(--color-text-dark);
+  }
+  body.dark-mode footer ul li a:hover,
+  body.dark-mode footer ul li a:focus {
+    color: var(--color-primary);
+  }
+  body.dark-mode .social-icons a {
+    color: var(--color-text-dark);
+  }
+  body.dark-mode .social-icons a:hover,
+  body.dark-mode .social-icons a:focus {
+    color: var(--color-primary);
+  }
+  body.dark-mode .email-subscription input[type="email"] {
+    border: 1.5px solid #374151;
+    background: #1f2937;
+    color: var(--color-text-dark);
+  }
+  body.dark-mode .email-subscription input[type="email"]:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 8px var(--color-primary);
+  }
+  body.dark-mode .email-subscription button {
+    background-color: var(--color-primary);
+  }
+  body.dark-mode .button-primary {
+    background-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 6px 18px rgba(96, 165, 250, 0.6);
+  }
+  body.dark-mode .button-primary:hover,
+  body.dark-mode .button-primary:focus {
+    box-shadow: 0 12px 30px rgba(59, 130, 246, 0.9);
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" tabindex="0">Zyncra</div>
+  <nav aria-label="Primary navigation">
+    <a href="#home" class="nav-link active" data-section="home" tabindex="0">Home</a>
+    <a href="#services" class="nav-link" data-section="services" tabindex="0">Services</a>
+    <a href="#ourworks" class="nav-link" data-section="ourworks" tabindex="0">Our Works</a>
+    <a href="#blog" class="nav-link" data-section="blog" tabindex="0">Blog</a>
+    <a href="#about" class="nav-link" data-section="about" tabindex="0">About Us</a>
+    <a href="#contact" class="nav-link" data-section="contact" tabindex="0">Contact</a>
+  </nav>
+  <button id="theme-toggle" aria-label="Switch to dark mode" tabindex="0">Dark Mode</button>
+</header>
+<main>
+  <section id="home" class="active" role="region" aria-label="Home">
+    <div class="container">
+      <div class="hero" role="banner">
+        <h1>Building Your Digital Future Together</h1>
+        <p>Expert web applications, websites, and manual testing services — handcrafted by your trusted team.</p>
+        <button class="button-primary" id="cta-get-started" aria-label="Get Started with Zyncra">Get Started</button>
+      </div>
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Delivering quality digital solutions with precision and care</p>
+      <div class="cards-grid" role="list">
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="service-webapp-title" aria-describedby="service-webapp-desc">
+          <svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          <h3 id="service-webapp-title">Web Application Development</h3>
+          <p id="service-webapp-desc">Custom-built, scalable web applications tailored to your business needs with intuitive user experience.</p>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="service-website-title" aria-describedby="service-website-desc">
+          <svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="2"/></svg>
+          <h3 id="service-website-title">Website Design & Development</h3>
+          <p id="service-website-desc">Modern, responsive websites that create lasting impressions and effectively communicate your brand story.</p>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="service-testing-title" aria-describedby="service-testing-desc">
+          <svg class="icon" aria-hidden="true" fill="none" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
+          <h3 id="service-testing-title">Manual Testing Services</h3>
+          <p id="service-testing-desc">Thorough and precise manual testing to ensure your digital product's highest quality and reliability.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section id="services" role="region" aria-label="Services">
+    <div class="container">
+      <h2 class="section-title">Our Detailed Services</h2>
+      <p class="section-subtitle">Explore the full scope of what Zyncra can deliver to help your business thrive online.</p>
+      <div class="cards-grid" role="list">
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="details-webapp-title" aria-describedby="details-webapp-desc">
+          <h3 id="details-webapp-title">Web Application Development</h3>
+          <p id="details-webapp-desc">
+            We build secure, scalable and maintainable web apps using the latest technologies. From startups to enterprises,
+            our custom solutions are developed with modular architecture and UX-first design.
+          </p>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="details-website-title" aria-describedby="details-website-desc">
+          <h3 id="details-website-title">Website Design & Development</h3>
+          <p id="details-website-desc">
+            Our team crafts pixel-perfect, responsive websites optimized for speed and SEO. Whether a landing page or full corporate site,
+            we focus on branded user experiences that deliver results.
+          </p>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="details-testing-title" aria-describedby="details-testing-desc">
+          <h3 id="details-testing-title">Manual Testing Services</h3>
+          <p id="details-testing-desc">
+            Comprehensive manual testing process including functional, usability, regression, and acceptance testing to catch issues before launch.
+            Our expert testers work closely with you to assure quality without compromise.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section id="ourworks" role="region" aria-label="Our Works">
+    <div class="container">
+      <h2 class="section-title">Our Works</h2>
+      <p class="section-subtitle">A showcase of projects and solutions we have crafted for our valued clients.</p>
+      <div class="cards-grid" role="list">
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="project1-title" aria-describedby="project1-desc">
+          <h3 id="project1-title">ShopEase Web App</h3>
+          <p id="project1-desc">E-commerce web app developed to enhance user shopping experience with seamless checkout and integration.</p>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="project2-title" aria-describedby="project2-desc">
+          <h3 id="project2-title">TravelPro Website</h3>
+          <p id="project2-desc">Responsive marketing website for a travel agency, optimized for mobile and SEO with breathtaking visuals.</p>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="project3-title" aria-describedby="project3-desc">
+          <h3 id="project3-title">FinTrack Dashboard</h3>
+          <p id="project3-desc">Custom financial tracking dashboard offering real-time analytics, data export, and user management features.</p>
+        </article>
+        <article class="card" role="listitem" tabindex="0" aria-labelledby="project4-title" aria-describedby="project4-desc">
+          <h3 id="project4-title">HealthCare QA Testing</h3>
+          <p id="project4-desc">Manual testing project ensuring flawless functionality and compliance for a healthcare management system.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section id="blog" role="region" aria-label="Blog">
+    <div class="container">
+      <h2 class="section-title">Blog</h2>
+      <p class="section-subtitle">Stay tuned for expert articles and insights coming soon!</p>
+      <p style="text-align:center; font-style: italic; color: var(--color-text); user-select:none;">(Blog content is under development.)</p>
+    </div>
+  </section>
+  <section id="about" role="region" aria-label="About Us">
+    <div class="container">
+      <h2 class="section-title">About Zyncra</h2>
+      <p class="section-subtitle">A close-knit team of five to six passionate friends building a future of digital excellence in India.</p>
+      <p style="max-width:720px; margin: 0 auto 2.5rem auto; color: var(--color-text-dark); font-weight: 500; font-size: 1.1rem;">
+        Founded by a group of 5-6 like-minded friends in India, Zyncra was born out of a shared passion to deliver 
+        both robust web applications and high-quality manual testing services. Our collaborative culture ensures 
+        every project is a true partnership, focused on innovation, attention to detail, and client satisfaction.
+      </p>
+      <h3 style="text-align:center; margin-bottom:1.2rem; color: var(--color-text-dark); font-weight: 700;">Meet the Team</h3>
+      <ul class="team-list" role="list">
+        <li tabindex="0">Friend 1 - Co-founder & Lead Developer</li>
+        <li tabindex="0">Friend 2 - Co-founder & QA Lead</li>
+        <li tabindex="0">Friend 3 - Co-founder & UI/UX Designer</li>
+        <li tabindex="0">Friend 4 - Fullstack Developer</li>
+        <li tabindex="0">Friend 5 - Manual Testing Specialist</li>
+        <li tabindex="0">Friend 6 - Business & Operations</li>
+      </ul>
+    </div>
+  </section>
+  <section id="contact" role="region" aria-label="Contact">
+    <div class="container">
+      <h2 class="section-title">Get In Touch</h2>
+      <p class="section-subtitle">We’d love to hear about your project or how we can help you. Reach out anytime!</p>
+      <form id="contact-form" aria-label="Contact form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required autocomplete="name" aria-required="true" />
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autocomplete="email" aria-required="true" />
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required aria-required="true"></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <p style="text-align:center; margin-top: 2.2rem; color: var(--color-text-dark); font-size: 0.9rem; user-select:none;">
+        Or contact us at <a href="mailto:contact@zyncra.in">contact@zyncra.in</a> | Phone: <a href="tel:+919876543210">+91 98765 43210</a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo" aria-label="Footer">
+  <div class="footer-container container">
+    <section class="footer-section" aria-labelledby="footer-nav-title">
+      <h4 id="footer-nav-title">Site Links</h4>
+      <ul>
+        <li><a href="#home" class="footer-link" tabindex="0">Home</a></li>
+        <li><a href="#services" class="footer-link" tabindex="0">Services</a></li>
+        <li><a href="#ourworks" class="footer-link" tabindex="0">Our Works</a></li>
+        <li><a href="#blog" class="footer-link" tabindex="0">Blog</a></li>
+        <li><a href="#about" class="footer-link" tabindex="0">About Us</a></li>
+        <li><a href="#contact" class="footer-link" tabindex="0">Contact Us</a></li>
+      </ul>
+    </section>
+
+    <section class="footer-section" aria-labelledby="footer-services-title">
+      <h4 id="footer-services-title">Services</h4>
+      <ul>
+        <li><a href="#services" class="footer-link" tabindex="0">Web Application Development</a></li>
+        <li><a href="#services" class="footer-link" tabindex="0">Website Design & Development</a></li>
+        <li><a href="#services" class="footer-link" tabindex="0">Manual Testing Services</a></li>
+      </ul>
+    </section>
+
+    <section class="footer-section" aria-labelledby="footer-subscribe-title">
+      <h4 id="footer-subscribe-title">Subscribe</h4>
+      <form class="email-subscription" id="email-subscription-form" aria-label="Subscribe to newsletter">
+        <input type="email" id="subscribe-email" name="subscribe-email" placeholder="Your email address" required aria-required="true" />
+        <button type="submit" tabindex="0">Subscribe</button>
+      </form>
+      <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--color-text); user-select:none;">
+        Get updates on new services and articles.
+      </p>
+    </section>
+
+    <section class="footer-section" aria-labelledby="footer-contact-title">
+      <h4 id="footer-contact-title">Contact</h4>
+      <ul>
+        <li><a href="mailto:contact@zyncra.in" class="footer-link" tabindex="0" aria-label="Email contact at contact@zyncra.in">contact@zyncra.in</a></li>
+        <li><a href="tel:+919876543210" class="footer-link" tabindex="0" aria-label="Phone contact at +91 98765 43210">+91 98765 43210</a></li>
+      </ul>
+      <div class="social-icons" role="list" aria-label="Social media links">
+        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook" tabindex="0" >
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 5.006 3.676 9.128 8.437 9.878v-6.99h-2.54v-2.888h2.54v-2.205c0-2.507 1.493-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.463h-1.26c-1.243 0-1.63.773-1.63 1.562v1.874h2.773l-.443 2.888h-2.33v6.99C18.324 21.128 22 17.006 22 12z"/></svg>
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Twitter" tabindex="0" >
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M22.46 6c-.77.34-1.6.58-2.47.69a4.32 4.32 0 001.9-2.38 8.59 8.59 0 01-2.73 1.05 4.28 4.28 0 00-7.3 3.9 12.16 12.16 0 01-8.82-4.47 4.28 4.28 0 001.32 5.72 4.3 4.3 0 01-1.94-.54v.05a4.28 4.28 0 003.44 4.2 4.3 4.3 0 01-1.93.07 4.28 4.28 0 003.99 2.98 8.6 8.6 0 01-5.33 1.83A8.77 8.77 0 012 18.54a12.13 12.13 0 006.57 1.92c7.89 0 12.22-6.54 12.22-12.22l-.01-.56A8.75 8.75 0 0024 5.1a8.45 8.45 0 01-2.54.7z"/></svg>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn" tabindex="0" >
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.55c0-1.32-.02-3.02-1.84-3.02-1.85 0-2.14 1.45-2.14 2.94v5.63H9.36V9h3.41v1.56h.05a3.74 3.74 0 013.37-1.85c3.61 0 4.28 2.37 4.28 5.44v6.3zM5.34 7.43a2.07 2.07 0 11.01-4.14 2.07 2.07 0 010 4.14zm1.77 13.02H3.57V9h3.54v11.45zM22.22 0H1.78A1.78 1.78 0 000 1.78v20.44A1.79 1.79 0 001.78 24h20.44a1.78 1.78 0 001.78-1.78V1.78A1.79 1.79 0 0022.22 0z"/></svg>
+        </a>
+      </div>
+    </section>
+  </div>
+  <p style="text-align:center; margin-top:3rem; color: var(--color-text); font-size: 0.85rem; user-select:none;">&copy; 2024 Zyncra. All rights reserved.</p>
+</footer>
+
+<script>
+  const navLinks = document.querySelectorAll('.nav-link');
+  const footerLinks = document.querySelectorAll('.footer-link');
+  const sections = document.querySelectorAll('main section');
+  const themeToggle = document.getElementById('theme-toggle');
+  const body = document.body;
+
+  function setActiveSection(id, focus = true) {
+    sections.forEach(sec => {
+      if (sec.id === id) {
+        sec.classList.add('active');
+        if (focus) {
+          sec.setAttribute('tabindex', '0');
+          sec.focus();
+        } else {
+          sec.removeAttribute('tabindex');
+        }
+      } else {
+        sec.classList.remove('active');
+        sec.removeAttribute('tabindex');
+      }
+    });
+    navLinks.forEach(link => {
+      if (link.dataset.section === id) {
+        link.classList.add('active');
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.classList.remove('active');
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const section = e.currentTarget.dataset.section;
+      setActiveSection(section);
+      history.replaceState(null, '', '#' + section);
+    });
+    link.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const section = e.currentTarget.dataset.section;
+        setActiveSection(section);
+        history.replaceState(null, '', '#' + section);
+      }
+    });
+  });
+
+  footerLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const href = e.currentTarget.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const section = href.substring(1);
+        setActiveSection(section);
+        history.replaceState(null, '', href);
+      }
+    });
+  });
+
+  window.addEventListener('load', () => {
+    const hash = window.location.hash.substring(1);
+    if (hash && document.getElementById(hash)) {
+      setActiveSection(hash, false);
+    } else {
+      setActiveSection('home', false);
+    }
+    const savedMode = localStorage.getItem('zyncra-theme');
+    if(savedMode === 'dark'){
+      body.classList.add('dark-mode');
+      themeToggle.textContent = 'Light Mode';
+      themeToggle.setAttribute('aria-label', 'Switch to light mode');
+    } else {
+      body.classList.remove('dark-mode');
+      themeToggle.textContent = 'Dark Mode';
+      themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+    }
+  });
+
+  themeToggle.addEventListener('click', () => {
+    if(body.classList.contains('dark-mode')){
+      body.classList.remove('dark-mode');
+      themeToggle.textContent = 'Dark Mode';
+      themeToggle.setAttribute('aria-label', 'Switch to dark mode');
+      localStorage.setItem('zyncra-theme', 'light');
+    } else {
+      body.classList.add('dark-mode');
+      themeToggle.textContent = 'Light Mode';
+      themeToggle.setAttribute('aria-label', 'Switch to light mode');
+      localStorage.setItem('zyncra-theme', 'dark');
+    }
+  });
+
+  document.getElementById('contact-form').addEventListener('submit', e => {
+    e.preventDefault();
+    alert(`Thank you for reaching out, ${e.target.name.value}! We'll get back to you shortly.`);
+    e.target.reset();
+  });
+
+  document.getElementById('email-subscription-form').addEventListener('submit', e => {
+    e.preventDefault();
+    alert(`Subscribed successfully with ${e.target['subscribe-email'].value}! Thank you.`);
+    e.target.reset();
+  });
+
+  document.getElementById('cta-get-started').addEventListener('click', () => {
+    setActiveSection('services');
+    history.replaceState(null, '', '#services');
+  });
+</script>
+</body>
+</html>
+
